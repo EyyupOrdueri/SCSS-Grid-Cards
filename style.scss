@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap');
+
+@mixin borderRadius ($par) {
+    border-radius: $par;
+}
+
+@mixin transition ($par) {
+    transition: $par all;
+}
+
+@mixin transform ($par) {
+    transform: $par;
+}
+
+$backgroundcard : #fff;
+$bcg-a: #000;
+$margin : 2rem;
+$bcghover: #3693ea;
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(./image/bgi.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: grid;
+    place-items: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    padding: 0 3rem;
+    gap: 2rem;
+
+    &:hover .card {
+        filter: blur(5px);
+        @include transform(scale(0.9))
+    }
+
+    &:hover .card:hover {
+        filter: blur(0) ;
+        // -webkit-filter: blur(0) ;
+}
+    
+    .card {
+        background-color: $backgroundcard;
+        padding: $margin;
+        position: relative;
+        border-radius: 20px;
+        @include transition(300ms);
+        
+
+        &:before {
+            content: "";
+            background-color: #fff;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            @include transition(300ms); 
+        }
+            &:hover:before {
+                 background-color: crimson;
+                 @include transform(scale(1.2));
+            }
+
+            &:hover .content {
+                color: #fff;
+            }
+
+        .content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            i {
+                font-size: $margin + 1;
+                margin-bottom: $margin;
+            }
+            p {
+                margin-bottom: $margin;
+            }
+            a {
+                background: $bcg-a;
+                text-decoration: none;
+                padding: 0.5rem 1.5rem;
+                color: $backgroundcard;
+                @include borderRadius(10px);
+                @include transition(300ms);
+
+                &:hover {
+                    background-color: $bcghover;
+
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:1170px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width:768px) {
+    .container {
+        grid-template-columns:1fr;
+        margin: 5rem 0;
+    }
+}
